@@ -1,16 +1,24 @@
+import { DefaultUi, Player, Youtube } from "@vime/react";
 import {
   CaretRight,
   DiscordLogo,
   FileArrowDown,
   Image,
-  Lightning
+  Lightning,
 } from "phosphor-react";
+
+import '@vime/core/themes/default.css'
 
 export function Video() {
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center">
-        <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video"></div>
+        <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
+          <Player>
+            <Youtube videoId="S5Qvi23VqaQ" />
+            <DefaultUi />
+          </Player>
+        </div>
       </div>
 
       <div className="p-8 max-w-[1100px] mx-auto">
@@ -19,7 +27,7 @@ export function Video() {
             <h1 className="text-2xl font-bold">
               Aula 01 - Abertura do Ignite Lab
             </h1>
-            <p className="mt-16 text-gray-200 leading-relaxed">
+            <p className="mt-4 text-gray-200 leading-relaxed">
               Nessa aula vamos dar início ao projeto criando a estrutura base da
               aplicação utilizando ReactJS, Vite e TailwindCSS. Vamos também
               realizar o setup do nosso projeto no GraphCMS criando as entidades
