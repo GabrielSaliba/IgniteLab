@@ -7,9 +7,50 @@ import {
   Lightning,
 } from "phosphor-react";
 
-import '@vime/core/themes/default.css'
+import "@vime/core/themes/default.css";
+import { gql, useQuery } from "@apollo/client";
 
-export function Video() {
+const GET_LESSON_BY_SLUG_QUERY = gql`
+  query GetLessonBySlug($slug: String) {
+    lesson(where: { slug: $slug }) {
+      title
+      videoId
+      description
+      teacher {
+        bio
+        avatarURL
+        name
+      }
+    }
+  }
+`;
+
+interface GetLessonBySlugResponse {
+  lesson: {
+    title: string;
+    videoId: string;
+    description: string;
+    teacher: {
+      name: string;
+      bio: string;
+      avatarURL: string;
+    };
+  };
+}
+
+interface VideoProps {
+  lessonSlug: string;
+}
+
+export function Video(props: VideoProps) {
+  const {data} = useQuery(GET_LESSON_BY_SLUG_QUERY, {
+    variables: {
+      slug: props.lessonSlug,
+    },
+  });
+
+  console.log(data)
+
   return (
     <div className="flex-1">
       <div className="bg-black flex justify-center">
@@ -53,14 +94,14 @@ export function Video() {
           <div className="flex flex-col gap-4">
             <a
               href="#"
-              className="p-4 text-sm bg-green-500 flex items-center rounded font-bold uppercase gap-2 justify-center hover:bg-green-700 transition-colors"
+              className="p-4 text-sm bg-green-500 flex items-center rounded font-bold uppercase gap-2 justify-center hover:bg-green-700 duration-300"
             >
               <DiscordLogo size={24} />
               Comunidade do Discord
             </a>
             <a
               href="#"
-              className="p-4 text-sm border border-blue-500 flex items-center rounded font-bold uppercase gap-2 justify-center hover:bg-blue-500 hover:text-gray-900 transition-colors"
+              className="p-4 text-sm border border-blue-500 flex items-center rounded font-bold uppercase gap-2 justify-center hover:bg-blue-500 hover:text-gray-900 transition-colors duration-300"
             >
               <Lightning size={24} />
               Acesse o desafio
